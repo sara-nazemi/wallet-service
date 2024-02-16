@@ -42,14 +42,14 @@ public class WalletTransactionServiceImpl extends BaseServiceImpl<WalletTransact
 
     public void deposit(String receiverUserName, Long amount, TransactionType type) {
         if (amount == null) {
-            throw new WalletException("amount is null");
+            throw new WalletException("amount.null");
         }
         walletServiceImpl.checkingExistWallet(receiverUserName);
 
         if (!(type == TransactionType.WALLET_TO_WALLET || type == TransactionType.QR_CODE ||
                 type == TransactionType.BANK_TO_WALLET || type == TransactionType.WALLET_TO_CHARITY ||
                 type == TransactionType.AUTO_CHARGE)) {
-            throw new WalletException("The option is not correct");
+            throw new WalletException("option.not.correct");
         }
 
         Wallet byUserName = walletRepository.findByUserName(receiverUserName);
@@ -65,11 +65,11 @@ public class WalletTransactionServiceImpl extends BaseServiceImpl<WalletTransact
 
         if (!(type == TransactionType.WALLET_TO_WALLET || type == TransactionType.WALLET_TO_BANK ||
                 type == TransactionType.WALLET_TO_CHARITY || type == TransactionType.QR_CODE)) {
-            throw new WalletException("The option is not correct");
+            throw new WalletException("option.not.correct");
         }
         Wallet byUserName = walletRepository.findByUserName(senderUseName);
         if (byUserName.getBalance() < amount) {
-            throw new WalletException("Insufficient inventory");
+            throw new WalletException("Insufficient.inventory");
         }
         byUserName.setBalance(byUserName.getBalance() - amount);
         walletRepository.save(byUserName);
@@ -81,7 +81,7 @@ public class WalletTransactionServiceImpl extends BaseServiceImpl<WalletTransact
         walletServiceImpl.checkingExistWallet(receiverUserName);
         walletServiceImpl.checkingExistWallet(senderUserName);
         if (!(type == TransactionType.WALLET_TO_WALLET || type == TransactionType.WALLET_TO_CHARITY)) {
-            throw new WalletException("The option is not correct");
+            throw new WalletException("option.not.correct");
         }
         withdraw(senderUserName, amount, type);
         WalletTransaction withdraw = setWalletTransaction(walletRepository.findByUserName(senderUserName), false, true,
@@ -110,7 +110,7 @@ public class WalletTransactionServiceImpl extends BaseServiceImpl<WalletTransact
     public List<WalletTransaction> showTransactionBetween(LocalDate startDate, LocalDate endDate, String userName) {
 
         if (startDate == null || endDate == null || userName == null) {
-            throw new WalletException("items.not.null");
+            throw new WalletException("items.is.null");
         }
         walletServiceImpl.checkingExistWallet(userName);
         List<WalletTransaction> transactions = new ArrayList<>();
