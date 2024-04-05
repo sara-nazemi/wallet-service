@@ -27,7 +27,7 @@ public class WalletServiceImpl extends BaseServiceImpl<Wallet, WalletRepository>
         return walletRepository.save(Wallet.builder()
                 .userName(userName)
                 .balance(0L)
-                .walletStatus(WalletStatus.created)
+                .walletStatus(WalletStatus.CREATED)
                 .walletCode(generateWalletCode(userName))
                 .build());
     }
